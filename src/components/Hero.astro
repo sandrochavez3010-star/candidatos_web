@@ -1,0 +1,49 @@
+---
+// Hero.astro
+---
+
+<section id="hero-section" style="background:#f5f4f0; border-bottom: 1px solid #e0ddd6;">
+  <div id="hero">
+    <div>
+      <div class="hero-tag">ELECCIONES GENERALES · ABRIL 2026</div>
+      <h1 class="hero-title">
+        VOTA <span class="red">INFORMADO.</span><br />
+        NO POR <span class="underline-word">RUIDO.</span>
+      </h1>
+      <p class="hero-desc">
+        Toda la información que los partidos no quieren que veas en un solo lugar:
+        hojas de vida sin filtro, semáforo judicial, propuestas reales y comparador
+        de candidatos.
+      </p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="document.getElementById('buscador').scrollIntoView({behavior:'smooth'})">
+          EXPLORAR CANDIDATOS ↓
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('bicameralidad').scrollIntoView({behavior:'smooth'})">
+          ¿CÓMO VOTAR BICAMERAL?
+        </button>
+      </div>
+    </div>
+ 
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">+90</div>
+        <div class="stat-label">CANDIDATOS EN FICHA</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">60</div>
+        <div class="stat-label">SENADORES EN JUEGO</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">130</div>
+        <div class="stat-label">DIPUTADOS REGIONALES</div>
+      </div>
+      <div class="stat-card warn">
+        <div style="display:flex; align-items:flex-start; gap:8px;">
+          <span class="stat-warn-icon">⚠️</span>
+          <p class="stat-warn-text">Datos referenciales con fines educativos. Verifica siempre en JNE y ONPE.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,75 @@
+---
+// Myths.astro
+---
+
+<section id="mitos">
+  <div style="max-width:860px; margin:0 auto;">
+    <p class="section-tag">06 / TIP DE ORO</p>
+    <h2 class="section-title">Mitos & Verdades</h2>
+    <p style="font-size:14px;color:#666;margin-bottom:1.5rem;line-height:1.6;">
+      No te dejes engañar por cadenas de WhatsApp. Aquí desmentimos lo que circula con fuentes oficiales.
+    </p>
+ 
+    <div class="mitos-list">
+      <div class="mito-item" onclick="toggleMito(this)">
+        <div class="mito-left">
+          <span class="mito-badge">MITO</span>
+          <span class="mito-text">Si voto en blanco, mi voto se reparte entre los candidatos.</span>
+        </div>
+        <span class="mito-arrow">∨</span>
+      </div>
+      <div class="mito-answer">
+        <strong>VERDAD:</strong> El voto en blanco no se asigna a ningún candidato. Simplemente no cuenta para ninguna opción pero sí se contabiliza como participación.
+      </div>
+ 
+      <div class="mito-item" onclick="toggleMito(this)">
+        <div class="mito-left">
+          <span class="mito-badge">MITO</span>
+          <span class="mito-text">No es obligatorio votar si tengo más de 70 años.</span>
+        </div>
+        <span class="mito-arrow">∨</span>
+      </div>
+      <div class="mito-answer">
+        <strong>VERDAD:</strong> En Perú, el voto es voluntario para los mayores de 70 años. No están obligados a votar y no se les aplica multa.
+      </div>
+ 
+      <div class="mito-item" onclick="toggleMito(this)">
+        <div class="mito-left">
+          <span class="mito-badge">MITO</span>
+          <span class="mito-text">Puedo votar en cualquier mesa si llego tarde.</span>
+        </div>
+        <span class="mito-arrow">∨</span>
+      </div>
+      <div class="mito-answer">
+        <strong>VERDAD:</strong> Debes votar únicamente en la mesa que te fue asignada según tu DNI. Votar en otra mesa anula tu voto.
+      </div>
+ 
+      <div class="mito-item" onclick="toggleMito(this)">
+        <div class="mito-left">
+          <span class="mito-badge">MITO</span>
+          <span class="mito-text">Los miembros de mesa cobran ese mismo día.</span>
+        </div>
+        <span class="mito-arrow">∨</span>
+      </div>
+      <div class="mito-answer">
+        <strong>VERDAD:</strong> Los miembros de mesa reciben una compensación económica, pero el pago se realiza en los días siguientes a la elección, no el mismo día.
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function toggleMito(item: HTMLElement) {
+    const answer = item.nextElementSibling as HTMLElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.mito-item').forEach(i => {
+      i.classList.remove('open');
+      const sibling = i.nextElementSibling as HTMLElement;
+      if (sibling) sibling.classList.remove('show');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      if (answer) answer.classList.add('show');
+    }
+  }
+</script>

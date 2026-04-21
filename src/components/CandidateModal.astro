@@ -1,0 +1,130 @@
+---
+// CandidateModal.astro
+---
+
+<div class="modal" id="candidateModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    
+    <div class="modal-header">
+      <div class="modal-avatar" id="modalAvatar">KF</div>
+      <div class="modal-info">
+        <h2 id="modalName">Keiko Fujimori</h2>
+        <div class="modal-party" id="modalParty">FUERZA POPULAR</div>
+        <div class="modal-meta">
+          <span id="modalCargo">Presidencia</span>
+          <span id="modalRegion">Nacional</span>
+          <span id="modalAge">50 años</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-section">
+      <div class="modal-alert" id="modalAlert">
+        Investigaciones en curso — Investigación en curso por presunto lavado de activos.
+      </div>
+      <h3>HOJA DE VIDA</h3>
+      <ul id="modalBio">
+        <li>Administradora de empresas — Boston University</li>
+        <li>MBA — Columbia Business School</li>
+        <li>Congresista de la República (2006-2011)</li>
+        <li>Lideresa de Fuerza Popular desde 2010</li>
+      </ul>
+    </div>
+
+    <div class="modal-section">
+      <h3>PASADO POLÍTICO</h3>
+      <ul id="modalHistory">
+        <li>2010 - FUERZA 2011</li>
+        <li>2012 - FUERZA POPULAR</li>
+      </ul>
+    </div>
+
+    <div class="modal-section">
+      <h3>PROPUESTAS EN 1 MINUTO</h3>
+      <ul id="modalProposals">
+        <li><strong>Seguridad:</strong> Estado de emergencia permanente en zonas críticas</li>
+        <li><strong>Economía:</strong> Reducción del IGV temporal</li>
+        <li><strong>Salud:</strong> Compra centralizada de medicamentos</li>
+      </ul>
+    </div>
+
+    <div class="modal-actions">
+      <button class="modal-btn" onclick="downloadPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        DESCARGAR FICHA PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  declare const html2pdf: any;
+  
+  let currentCandidateData = {
+    name: '',
+    party: '',
+    cargo: '',
+    region: '',
+    initials: '',
+    bgColor: ''
+  };
+
+  function openModal(event: Event, name: string, party: string, cargo: string, region: string, initials: string, bgColor: string) {
+    event.preventDefault();
+    currentCandidateData = { name, party, cargo, region, initials, bgColor };
+    
+    const modalName = document.getElementById('modalName');
+    const modalParty = document.getElementById('modalParty');
+    const modalCargo = document.getElementById('modalCargo');
+    const modalRegion = document.getElementById('modalRegion');
+    const modalAvatar = document.getElementById('modalAvatar');
+    
+    if (modalName) modalName.textContent = name;
+    if (modalParty) modalParty.textContent = party;
+    if (modalCargo) modalCargo.textContent = cargo;
+    if (modalRegion) modalRegion.textContent = region;
+    if (modalAvatar) {
+      modalAvatar.textContent = initials;
+      modalAvatar.style.background = bgColor;
+    }
+    
+    const modal = document.getElementById('candidateModal');
+    if (modal) modal.classList.add('active');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('candidateModal');
+    if (modal) modal.classList.remove('active');
+  }
+
+  // Cerrar modal al hacer clic fuera
+  const modal = document.getElementById('candidateModal');
+  if (modal) {
+    modal.addEventListener('click', (e: MouseEvent) => {
+      if (e.target === modal) closeModal();
+    });
+  }
+
+  function downloadPDF() {
+    if (typeof html2pdf === 'undefined') {
+      alert('La librería de PDF no ha cargado correctamente');
+      return;
+    }
+    
+    const element = document.getElementById('candidateModal');
+    if (!element) return;
+    
+    const opt = {
+      margin: 10,
+      filename: `Ficha_${currentCandidateData.name.replace(/\s+/g, '_')}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+    };
+    
+    html2pdf().set(opt).from(element).save();
+  }
+</script>
