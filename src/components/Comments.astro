@@ -10,48 +10,15 @@
     <div class="comentarios-layout">
       <div>
         <div class="comments-list" id="commentsList">
-          <div class="comment">
-            <div class="comment-avatar" style="background:#2980b9;">S</div>
-            <div class="comment-body">
-              <div class="comment-user">Sandro</div>
-              <div class="comment-text">Keiko es una mrd</div>
-              <div class="comment-actions">
-                <button>Ocultar ∧</button>
-                <span>5 Mas ∨</span>
-              </div>
-              <div class="nested-comment" style="display:flex;gap:8px;margin-top:8px;">
-                <div class="comment-avatar" style="background:#27ae60;width:26px;height:26px;font-size:10px;">S</div>
-                <div>
-                  <div class="comment-user" style="font-size:11px;">Sandro</div>
-                  <div class="comment-text" style="font-size:12px;">concuerdo</div>
-                </div>
-              </div>
-              <div class="nested-comment" style="display:flex;gap:8px;margin-top:6px;">
-                <div class="comment-avatar" style="background:#8e44ad;width:26px;height:26px;font-size:10px;">S</div>
-                <div>
-                  <div class="comment-user" style="font-size:11px;">Sandro</div>
-                  <div class="comment-text" style="font-size:12px;">x 2</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="comment" style="margin-top:1rem;">
-            <div class="comment-avatar" style="background:#e67e22;">R</div>
-            <div class="comment-body">
-              <div class="comment-user">Rodrigo</div>
-              <div class="comment-text">Porky solo sabe tragar</div>
-              <div class="comment-actions">
-                <button>Ver 2 respuestas ∨</button>
-              </div>
-            </div>
-          </div>
+          <!-- Se llena dinámicamente -->
         </div>
  
         <div class="comment-input-row">
           <input type="text" placeholder="Comenta tu opinión" id="commentInput" />
-          <button class="send-btn" onclick="addComment()">
+          <button class="send-btn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
             </svg>
           </button>
         </div>
@@ -60,22 +27,10 @@
       <div class="comments-info">
         <h3>¿Para qué sirve este chat?</h3>
         <ul class="info-list">
-          <li>
-            <strong>Crear comunidad</strong>
-            <span>- Conecta a los usuarios.</span>
-          </li>
-          <li>
-            <strong>Intercambiar información</strong>
-            <span>- Comparten datos y consejos.</span>
-          </li>
-          <li>
-            <strong>Dar feedback</strong>
-            <span>- Opinan para mejorar la web.</span>
-          </li>
-          <li>
-            <strong>Soporte entre usuarios</strong>
-            <span>- Se ayudan entre ellos.</span>
-          </li>
+          <li><strong>Crear comunidad</strong><span>- Conecta a los usuarios.</span></li>
+          <li><strong>Intercambiar información</strong><span>- Comparten datos y consejos.</span></li>
+          <li><strong>Dar feedback</strong><span>- Opinan para mejorar la web.</span></li>
+          <li><strong>Soporte entre usuarios</strong><span>- Se ayudan entre ellos.</span></li>
         </ul>
       </div>
     </div>
@@ -84,32 +39,104 @@
 
 <script>
   const colors = ['#2980b9','#27ae60','#8e44ad','#e67e22','#c0392b','#16a085'];
-  function addComment() {
-    const input = document.getElementById('commentInput') as HTMLInputElement;
+
+  // 🔒 Color fijo para "Tú"
+  const myColor = '#2980b9';
+
+  // 🔥 Cargar comentarios desde BD
+  async function loadCommentsFromDB() {
+    try {
+      const res = await fetch('http://localhost/comentarios_api/listar.php');
+      const data = await res.json();
+
+      const list = document.getElementById('commentsList');
+      if (!list) return;
+
+      // 🔥 evitar duplicados
+      list.innerHTML = '';
+
+      data.forEach(c => {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+
+        const div = document.createElement('div');
+        div.className = 'comment';
+
+        div.innerHTML = `
+          <div class="comment-avatar" style="background:${color};">
+            ${c.usuario.charAt(0).toUpperCase()}
+          </div>
+          <div class="comment-body">
+            <div class="comment-user">${c.usuario}</div>
+            <div class="comment-text">${c.mensaje}</div>
+          </div>
+        `;
+
+        list.appendChild(div);
+      });
+
+      list.scrollTop = list.scrollHeight;
+
+    } catch (err) {
+      console.error('Error cargando comentarios:', err);
+    }
+  }
+
+  // 🔥 Agregar comentario
+  async function addComment() {
+    const input = document.getElementById('commentInput');
     if (!input) return;
+
     const text = input.value.trim();
     if (!text) return;
+
     const list = document.getElementById('commentsList');
     if (!list) return;
-    const color = colors[Math.floor(Math.random() * colors.length)];
+
+    // 🔒 tu color fijo
+    const color = myColor;
+
     const div = document.createElement('div');
     div.className = 'comment';
-    div.style.marginTop = '1rem';
+
     div.innerHTML = `
       <div class="comment-avatar" style="background:${color};">T</div>
       <div class="comment-body">
         <div class="comment-user">Tú</div>
         <div class="comment-text">${text}</div>
-      </div>`;
+      </div>
+    `;
+
     list.appendChild(div);
-    input.value = '';
     list.scrollTop = list.scrollHeight;
+
+    // guardar en BD
+    try {
+      await fetch('http://localhost/comentarios_api/guardar.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuario: 'Tú', mensaje: text })
+      });
+    } catch (err) {
+      console.error('Error guardando:', err);
+    }
+
+    input.value = '';
   }
-  
+
+  // ENTER
   const commentInput = document.getElementById('commentInput');
   if (commentInput) {
-    commentInput.addEventListener('keydown', (e: KeyboardEvent) => {
+    commentInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') addComment();
     });
   }
+
+  // BOTÓN
+  const btn = document.querySelector('.send-btn');
+  if (btn) {
+    btn.addEventListener('click', addComment);
+  }
+
+  // 🚀 cargar al iniciar
+  loadCommentsFromDB();
 </script>

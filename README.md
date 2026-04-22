@@ -1,43 +1,126 @@
-# Astro Starter Kit: Minimal
+# 🗳️ Sistema Web de Candidatos Políticos (Cards + Fichas + PDF + Comentarios)
 
-```sh
-npm create astro@latest -- --template minimal
-```
+## 📌 Descripción general
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Este proyecto es una aplicación web desarrollada para la visualización e interacción con información de candidatos políticos.
 
-## 🚀 Project Structure
+El sistema permite ver candidatos en formato de tarjetas, abrir fichas detalladas con información completa, exportar esa información en PDF y participar mediante un sistema de comentarios tipo chat en tiempo real.
 
-Inside of your Astro project, you'll see the following folders and files:
+Está desarrollado como un sistema completo integrando frontend y backend.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+---
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🚀 Funcionalidades principales
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### 🧱 Sistema de tarjetas (Cards de candidatos)
 
-Any static assets, like images, can be placed in the `public/` directory.
+Se implementó un sistema de tarjetas que muestra a los candidatos de manera visual y ordenada en formato tipo dashboard.
 
-## 🧞 Commands
+Cada tarjeta contiene información resumida como:
+- Nombre del candidato
+- Partido político
+- Cargo o región
+- Estado (alerta o limpio)
+- Historial político resumido
 
-All commands are run from the root of the project, from a terminal:
+Las tarjetas tienen interacción visual (hover), lo que mejora la experiencia del usuario y hace más dinámico el sistema.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+---
 
-## 👀 Want to learn more?
+### 🧾 Fichas detalladas (Modal)
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Al seleccionar una tarjeta, se abre una ficha detallada del candidato en un modal.
+
+Esta ficha organiza la información en secciones como:
+- Hoja de vida
+- Trayectoria política
+- Propuestas
+
+El diseño está estructurado como una ficha informativa moderna, mejorando la lectura y organización de los datos.
+
+---
+
+### 📥 Exportación a PDF
+
+El sistema permite generar un archivo PDF de la ficha del candidato.
+
+El documento incluye la información principal organizada de forma clara, permitiendo al usuario descargar y guardar la información de cada candidato.
+
+---
+
+### 💬 Sistema de comentarios
+
+Se implementó un sistema de comentarios tipo chat donde los usuarios pueden escribir y ver mensajes en tiempo real.
+
+Características:
+- Envío de comentarios con botón o tecla Enter
+- Visualización tipo chat
+- Avatares con iniciales
+- Colores dinámicos por usuario
+- Scroll automático hacia los últimos mensajes
+
+---
+
+### 🗄️ Persistencia de datos
+
+Los comentarios se almacenan en una base de datos MySQL mediante una API en PHP.
+
+El sistema permite:
+- Guardar comentarios nuevos
+- Cargar comentarios existentes al iniciar la página
+- Mantener la información persistente
+
+---
+
+## 🧠 Problemas solucionados durante el desarrollo
+
+Durante el desarrollo se resolvieron varios problemas importantes como:
+- Errores al abrir las fichas (modal)
+- Problemas de renderizado de tarjetas
+- Comentarios duplicados
+- Validación de inputs vacíos
+- Integración entre frontend y backend
+- Correcta conexión con la base de datos
+
+---
+
+## 🎯 Resultado final
+
+El proyecto final es un sistema funcional que incluye:
+
+- Visualización de candidatos mediante cards interactivas
+- Fichas detalladas con información estructurada
+- Exportación de información en PDF
+- Sistema de comentarios en tiempo real
+- Integración completa con base de datos MySQL
+
+---
+
+## 🚀 Posibles mejoras futuras
+
+- Sistema de login de usuarios
+- Likes o reacciones en comentarios
+- Filtros por candidato o partido
+- Animaciones avanzadas tipo plataformas modernas
+- Comunicación en tiempo real con WebSockets
+- API REST completa
+
+---
+
+## 🛠️ Tecnologías utilizadas
+
+- Astro
+- JavaScript
+- CSS3
+- PHP
+- MySQL
+- XAMPP
+- jsPDF
+
+---
+
+## 📌 Estado del proyecto
+
+✔ Funcional  
+✔ Integrado frontend + backend  
+✔ Listo para presentación o portafolio 

@@ -7,6 +7,7 @@
     <p class="section-tag">01 / BUSCADOR</p>
     <h2 class="section-title">Encuentra a tus candidatos</h2>
  
+    <!-- 🔒 TODO ESTO NO SE TOCA -->
     <div class="search-box">
       <div class="search-input-wrap">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -38,10 +39,14 @@
       </div>
     </div>
  
-    <p class="results-count" id="resultsCount">3 CANDIDATOS ENCONTRADOS</p>
+    <p class="results-count" id="resultsCount">6 CANDIDATOS ENCONTRADOS</p>
  
+    <!-- 🔥 SOLO ESTA PARTE SE MODIFICÓ -->
     <div class="candidates-grid" id="candidatesGrid">
  
+      <!-- ===== FILA 1 ===== -->
+
+      <!-- 1 -->
       <div class="candidate-card" data-cargo="presidencia">
         <div class="card-top">
           <div class="card-avatar" style="background:#2c3e50;">KF</div>
@@ -54,20 +59,29 @@
             </div>
           </div>
         </div>
+
         <div class="card-alert">
           <div class="alert-dot"></div>
-          <div class="alert-text">Investigaciones en curso — Investigación en curso por presunto lavado de activos (Caso Cócteles).</div>
+          <div class="alert-text">
+            Investigaciones en curso — Lavado de activos.
+          </div>
         </div>
+
+        <!-- 🔥 TAGS RESTAURADOS -->
         <div class="card-tags">
           <span class="tag">2010 · FUERZA 2011</span>
           <span class="tag">2012 · FUERZA POPULAR</span>
         </div>
+
         <div class="card-bottom">
-          <a href="#" onclick="openModal(event, 'Keiko Fujimori', 'FUERZA POPULAR', 'Presidencia', 'Nacional', 'KF', '#2c3e50')">VER FICHA COMPLETA</a>
+          <a href="#" onclick="openModal(event, 'Keiko Fujimori', 'FUERZA POPULAR', 'Presidencia', 'Nacional', 'KF', '#2c3e50')">
+            VER FICHA COMPLETA
+          </a>
           <button>⤴</button>
         </div>
       </div>
- 
+
+      <!-- 2 -->
       <div class="candidate-card" data-cargo="presidencia">
         <div class="card-top">
           <div class="card-avatar" style="background:#8e1c1c;">RL</div>
@@ -80,20 +94,28 @@
             </div>
           </div>
         </div>
+
         <div class="card-alert">
           <div class="alert-dot"></div>
-          <div class="alert-text">Investigaciones en curso — Investigación por presunta evasión tributaria (Peruval).</div>
+          <div class="alert-text">
+            Investigación por evasión tributaria.
+          </div>
         </div>
+
         <div class="card-tags">
           <span class="tag">2010 · SOLIDARIDAD NAC.</span>
           <span class="tag">2020 · RENOV. POPULAR</span>
         </div>
+
         <div class="card-bottom">
-          <a href="#" onclick="openModal(event, 'Rafael López Aliaga', 'RENOVACIÓN POPULAR', 'Presidencia', 'Nacional', 'RL', '#8e1c1c')">VER FICHA COMPLETA</a>
+          <a href="#" onclick="openModal(event, 'Rafael López Aliaga', 'RENOVACIÓN POPULAR', 'Presidencia', 'Nacional', 'RL', '#8e1c1c')">
+            VER FICHA COMPLETA
+          </a>
           <button>⤴</button>
         </div>
       </div>
- 
+
+      <!-- 3 -->
       <div class="candidate-card" data-cargo="presidencia">
         <div class="card-top">
           <div class="card-avatar" style="background:#1a5276;">CA</div>
@@ -106,53 +128,178 @@
             </div>
           </div>
         </div>
+
         <div class="card-alert">
           <div class="alert-dot"></div>
-          <div class="alert-text">Investigaciones en curso — Investigación por presunto plagio académico y aportes irregulares.</div>
+          <div class="alert-text">
+            Investigación por plagio académico.
+          </div>
         </div>
+
         <div class="card-tags">
           <span class="tag">2005 · PERÚ POSIBLE</span>
           <span class="tag">2007 · APRA</span>
           <span class="tag">2008 · ALIANZA PROGRESO</span>
         </div>
+
         <div class="card-bottom">
-          <a href="#" onclick="openModal(event, 'César Acuña', 'ALIANZA PARA EL PROGRESO', 'Presidencia', 'Nacional', 'CA', '#1a5276')">VER FICHA COMPLETA</a>
+          <a href="#" onclick="openModal(event, 'César Acuña', 'ALIANZA PARA EL PROGRESO', 'Presidencia', 'Nacional', 'CA', '#1a5276')">
+            VER FICHA COMPLETA
+          </a>
           <button>⤴</button>
         </div>
       </div>
- 
+
+      <!-- ===== FILA 2 ===== -->
+
+      <!-- 4 -->
+      <div class="candidate-card" data-cargo="presidencia">
+        <div class="card-top">
+          <div class="card-avatar" style="background:#117a65;">PG</div>
+          <div>
+            <div class="card-name">Pedro García</div>
+            <div class="card-party">PARTIDO VERDE</div>
+            <div class="card-meta">
+              <span>Presidencia</span>
+              <span>Nacional</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-alert success">
+          <div class="alert-dot"></div>
+          <div class="alert-text">Sin investigaciones.</div>
+        </div>
+
+        <div class="card-tags">
+          <span class="tag">2015 · PARTIDO VERDE</span>
+        </div>
+
+        <div class="card-bottom">
+          <a href="#" onclick="openModal(event, 'Pedro García', 'PARTIDO VERDE', 'Presidencia', 'Nacional', 'PG', '#117a65')">
+            VER FICHA COMPLETA
+          </a>
+          <button>⤴</button>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="candidate-card" data-cargo="presidencia">
+        <div class="card-top">
+          <div class="card-avatar" style="background:#6c3483;">LM</div>
+          <div>
+            <div class="card-name">Lucía Mendoza</div>
+            <div class="card-party">MOVIMIENTO POPULAR</div>
+            <div class="card-meta">
+              <span>Presidencia</span>
+              <span>Nacional</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-alert">
+          <div class="alert-dot"></div>
+          <div class="alert-text">Investigación en proceso.</div>
+        </div>
+
+        <div class="card-tags">
+          <span class="tag">2018 · MOVIMIENTO POPULAR</span>
+        </div>
+
+        <div class="card-bottom">
+          <a href="#" onclick="openModal(event, 'Lucía Mendoza', 'MOVIMIENTO POPULAR', 'Presidencia', 'Nacional', 'LM', '#6c3483')">
+            VER FICHA COMPLETA
+          </a>
+          <button>⤴</button>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="candidate-card" data-cargo="presidencia">
+        <div class="card-top">
+          <div class="card-avatar" style="background:#b9770e;">JR</div>
+          <div>
+            <div class="card-name">Juan Ramos</div>
+            <div class="card-party">UNIÓN DEMOCRÁTICA</div>
+            <div class="card-meta">
+              <span>Presidencia</span>
+              <span>Nacional</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-alert success">
+          <div class="alert-dot"></div>
+          <div class="alert-text">Sin investigaciones.</div>
+        </div>
+
+        <div class="card-tags">
+          <span class="tag">2016 · UNIÓN DEMOCRÁTICA</span>
+        </div>
+
+        <div class="card-bottom">
+          <a href="#" onclick="openModal(event, 'Juan Ramos', 'UNIÓN DEMOCRÁTICA', 'Presidencia', 'Nacional', 'JR', '#b9770e')">
+            VER FICHA COMPLETA
+          </a>
+          <button>⤴</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<script>
-  let currentFilter = 'todos';
- 
-  function setFilter(btn: HTMLElement, cargo: string) {
-    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    currentFilter = cargo;
-    filterCandidates();
-  }
+<style>
+
+/* 🔴 default (alerta) */
+.alert-dot {
+  width: 6px;
+  height: 6px;
+  background: #f39c12; /* naranja */
+  border-radius: 50%;
+}
+
+/* 🟢 cuando NO hay problemas */
+.card-alert.success .alert-dot {
+  background: #2ecc71; /* verde */
+}
+
+.candidates-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.candidate-card {
+  background: #fff;
+  border: 1px solid #dcdcdc;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
   
-  function filterCandidates() {
-    const searchInput = document.getElementById('searchInput') as HTMLInputElement;
-    const query = searchInput?.value.toLowerCase() || '';
-    const cards = document.querySelectorAll('.candidate-card');
-    let visible = 0;
-    cards.forEach(card => {
-      const nameEl = card.querySelector('.card-name');
-      const partyEl = card.querySelector('.card-party');
-      const name = nameEl?.textContent?.toLowerCase() || '';
-      const party = partyEl?.textContent?.toLowerCase() || '';
-      const cargo = (card as HTMLElement).dataset.cargo;
-      const matchQuery = name.includes(query) || party.includes(query);
-      const matchFilter = currentFilter === 'todos' || cargo === currentFilter;
-      const show = matchQuery && matchFilter;
-      (card as HTMLElement).style.display = show ? '' : 'none';
-      if (show) visible++;
-    });
-    const resultsCount = document.getElementById('resultsCount');
-    if (resultsCount) resultsCount.textContent = visible + ' CANDIDATOS ENCONTRADOS';
-  }
-</script>
+  /* 🔒 sin sombra por defecto */
+  box-shadow: none;
+}
+
+/* 🔥 HOVER: aparece el “bloque” solo en esquina */
+.candidate-card:hover {
+  transform: translate(-6px, -6px);
+  box-shadow: 6px 6px 0 0 #000; /* 👉 derecha + abajo */
+}
+
+/* 🔥 TAGS estilo borde */
+.card-tags {
+  margin-top: 8px;
+}
+
+.tag {
+  display: inline-block;
+  font-size: 9px;              /* 🔥 tamaño pequeño como imagen */
+  padding: 2px 6px;            /* 🔥 compacto */
+  margin: 2px 4px 0 0;
+  background: #f0f0f0;         /* gris claro */
+  color: #555;
+  border: 1px solid #e0e0e0;   /* borde suave */
+  border-radius: 2px;          /* esquinas leves */
+  letter-spacing: 0.02em;
+}
+</style>
+
