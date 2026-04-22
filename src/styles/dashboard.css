@@ -494,3 +494,52 @@ footer {
   .hero-btns { flex-direction: column; }
   .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
 }
+
+
+.video-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* ── TERMINOS ── */
+body {
+  font-family: Arial, sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #111827;
+}
+
+h2 {
+  margin-top: 40px;
+  color: #374151;
+}
+
+p {
+  margin: 12px 0;
+  line-height: 1.8;
+}
+
+ul {
+  margin: 10px 0 10px 20px;
+}
