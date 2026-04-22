@@ -148,13 +148,13 @@ import "../styles/global.css";
           <label class="flex items-start gap-2 mb-4 cursor-pointer">
             <input
               type="checkbox"
+              id="terminos"
+              required
               class="mt-0.5 accent-red-600 w-4 h-4 shrink-0"
             />
             <span class="text-xs text-gray-500 leading-relaxed">
               Acepto los
-              <a href="#" class="text-red-600 hover:underline">términos y condiciones</a>
-              y la
-              <a href="#" class="text-red-600 hover:underline">política de privacidad</a>
+              <a href="/terminos" class="text-red-600 hover:underline">términos y condiciones y política de privacidad</a>
             </span>
           </label>
  
@@ -185,39 +185,4 @@ import "../styles/global.css";
   </body>
 </html>
 
-
-
-<script>
-document.getElementById("btnregister").addEventListener("click", async (e) => {
-  e.preventDefault();
-  console.log("scrpit cargando");
-  console.log("click funciona");
-
-  const nombre = document.getElementById("nombre").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  const res = await fetch("http://localhost:3000/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ nombre, email, password })
-  });
-
-  const data = await res.json();
-
-  const mensaje = document.getElementById("mensaje");
-
-  if (data.ok) {
-    mensaje.textContent = "Usuario registrado correctamente";
-    mensaje.style.color = "green";
-    setTimeout(() => {
-      window.location.href = "/login";
-    },1500);
-  } else {
-    mensaje.textContent = "Error al registrar";
-    mensaje.style.color = "red";
-  }
-});
-</script>
+<script type="module" src="/src/scripts/register.js"></script>
