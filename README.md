@@ -70,6 +70,14 @@ El sistema permite:
 - Cargar comentarios existentes al iniciar la página
 - Mantener la información persistente
 
+## ⚠️ Requisito para comentarios
+
+La API de comentarios debe estar en la ruta de XAMPP:
+
+`C:\xampp\htdocs\comentarios_api`
+
+De lo contrario, las peticiones `fetch()` no podrán conectarse al backend PHP y los comentarios no se cargarán ni guardarán correctamente.
+
 ---
 
 ## 🧠 Problemas solucionados durante el desarrollo
