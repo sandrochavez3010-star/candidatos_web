@@ -96,17 +96,6 @@ El proyecto final es un sistema funcional que incluye:
 
 ---
 
-## 🚀 Posibles mejoras futuras
-
-- Sistema de login de usuarios
-- Likes o reacciones en comentarios
-- Filtros por candidato o partido
-- Animaciones avanzadas tipo plataformas modernas
-- Comunicación en tiempo real con WebSockets
-- API REST completa
-
----
-
 ## 🛠️ Tecnologías utilizadas
 
 - Astro
@@ -118,9 +107,3 @@ El proyecto final es un sistema funcional que incluye:
 - jsPDF
 
 ---
-
-## 📌 Estado del proyecto
-
-✔ Funcional  
-✔ Integrado frontend + backend  
-✔ Listo para presentación o portafolio 
