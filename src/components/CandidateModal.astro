@@ -1,0 +1,217 @@
+---
+// CandidateModal.astro
+---
+
+<div class="modal" id="candidateModal">
+  <div class="modal-content" id="pdfContent">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    
+    <!-- HEADER OSCURO -->
+    <div class="modal-header-dark" id="modalHeader">
+      <div class="modal-avatar-large" id="modalAvatar" style="background:#c0392b;">KF</div>
+      <div class="modal-header-info">
+        <h1 id="modalName">Keiko Fujimori</h1>
+        <div class="modal-party-bold" id="modalParty">FUERZA POPULAR</div>
+        <div class="modal-meta-badges">
+          <span id="modalCargo">Presidencia</span>
+          <span id="modalRegion">Nacional</span>
+          <span id="modalAge">50 años</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTA NARANJA -->
+    <div class="modal-alert-section" id="alertSection">
+      <div class="alert-icon">⚠️</div>
+      <div>
+        <div class="alert-title">INVESTIGACIONES EN CURSO</div>
+        <div class="alert-desc" id="modalAlertText">Investigación en curso por presunto lavado de activos (Caso Cócteles).</div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO BLANCO -->
+    <div class="modal-white-body">
+      
+      <!-- HOJA DE VIDA -->
+      <section class="modal-section">
+        <div class="section-header">
+          <span class="section-icon">📋</span>
+          <h3>HOJA DE VIDA</h3>
+        </div>
+        <ul class="bio-list" id="modalBio"></ul>
+      </section>
+
+      <!-- PASADO POLÍTICO -->
+      <section class="modal-section">
+        <div class="section-header">
+          <span class="section-icon">⏱️</span>
+          <h3>PASADO POLÍTICO</h3>
+        </div>
+        <div class="history-tags-container" id="modalHistory"></div>
+      </section>
+
+      <!-- PROPUESTAS -->
+      <section class="modal-section">
+        <h3>PROPUESTAS EN 1 MINUTO</h3>
+        <div class="proposals-grid" id="modalProposals"></div>
+      </section>
+
+    </div>
+
+    <!-- BOTÓN DESCARGAR PDF -->
+    <div class="modal-footer-action">
+      <button class="btn-download-pdf" onclick="downloadPDF()">
+        <span class="btn-icon">📥</span> DESCARGAR FICHA PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  const candidateDetails = {
+    'Keiko Fujimori': {
+      age: '50 años',
+      alertText: 'Investigación en curso por presunto lavado de activos (Caso Cócteles).',
+      bio: [
+        'Administradora de empresas — Boston University',
+        'MBA — Columbia Business School',
+        'Congresista de la República (2006-2011)',
+        'Lideresa de Fuerza Popular desde 2010'
+      ],
+      history: ['2010 → FUERZA 2011', '2012 → FUERZA POPULAR'],
+      proposals: [
+        { icon: '🛡️', title: 'SEGURIDAD', description: 'Estado de emergencia permanente en zonas críticas y pena de muerte para sicarios.' },
+        { icon: '📈', title: 'ECONOMÍA', description: 'Reducción del IGV temporal y reactivación de Mi Vivienda.' },
+        { icon: '❤️', title: 'SALUD', description: 'Compra centralizada de medicamentos y ampliación del SIS.' }
+      ]
+    },
+    'Rafael López Aliaga': {
+      age: '61 años',
+      alertText: 'Investigación por presunta evasión tributaria (Peruval).',
+      bio: [
+        'Empresario del sector cementos e inmobiliario',
+        'Presidente de Renovación Popular',
+        'Candidato presidencial en 2021',
+        'Propuestas de infraestructura crítica'
+      ],
+      history: ['2010 → SOLIDARIDAD NAC.', '2020 → RENOV. POPULAR'],
+      proposals: [
+        { icon: '🛡️', title: 'SEGURIDAD', description: 'Estado de emergencia en zonas con alta criminalidad.' },
+        { icon: '📈', title: 'ECONOMÍA', description: 'Reducción de impuestos y promoción de inversión privada.' },
+        { icon: '🚗', title: 'INFRAESTRUCTURA', description: 'Obras viales críticas y transporte interprovincial.' }
+      ]
+    },
+    'César Acuña': {
+      age: '71 años',
+      alertText: 'Investigación por presunto plagio académico y aportes irregulares.',
+      bio: [
+        'Empresario y fundador de Alianza para el Progreso',
+        'Alcalde de Trujillo (múltiples períodos)',
+        'Congresista de la República',
+        'Formación en derecho y administración'
+      ],
+      history: ['2005 → PERÚ POSIBLE', '2007 → APRA', '2008 → ALIANZA PROGRESO'],
+      proposals: [
+        { icon: '📚', title: 'EDUCACIÓN', description: 'Inversión en infraestructura escolar y becas universitarias.' },
+        { icon: '📈', title: 'ECONOMÍA', description: 'Fomento a pequeña y mediana empresa.' },
+        { icon: '❤️', title: 'SALUD', description: 'Acceso mejorado a servicios básicos en regiones.' }
+      ]
+    }
+  };
+
+  let currentCandidateData = {
+    name: '', party: '', cargo: '', region: '', initials: '', bgColor: '',
+    age: '', alertText: '', bio: [], history: [], proposals: []
+  };
+
+  function openModal(event, name, party, cargo, region, initials, bgColor) {
+    event.preventDefault();
+    const details = candidateDetails[name] || {};
+    currentCandidateData = {
+      name, party, cargo, region, initials, bgColor,
+      age: details.age || 'N/A',
+      alertText: details.alertText || 'Información no disponible.',
+      bio: details.bio || [],
+      history: details.history || [],
+      proposals: details.proposals || []
+    };
+
+    document.getElementById('modalName').textContent = name;
+    document.getElementById('modalParty').textContent = party;
+    document.getElementById('modalCargo').textContent = cargo;
+    document.getElementById('modalRegion').textContent = region;
+    document.getElementById('modalAge').textContent = currentCandidateData.age;
+    document.getElementById('modalAlertText').textContent = currentCandidateData.alertText;
+    
+    const avatar = document.getElementById('modalAvatar');
+    avatar.textContent = initials;
+    avatar.style.background = bgColor;
+
+    document.getElementById('modalBio').innerHTML = currentCandidateData.bio
+      .map(item => `<li>${item}</li>`).join('');
+
+    document.getElementById('modalHistory').innerHTML = currentCandidateData.history
+      .map(item => `<div class="history-tag">${item}</div>`).join('');
+
+    document.getElementById('modalProposals').innerHTML = currentCandidateData.proposals
+      .map(p => `<div class="proposal-box"><div class="prop-icon">${p.icon}</div><strong>${p.title}</strong><p>${p.description}</p></div>`)
+      .join('');
+
+    document.getElementById('candidateModal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('candidateModal').classList.remove('active');
+  }
+
+  document.getElementById('candidateModal').addEventListener('click', e => {
+    if (e.target.id === 'candidateModal') closeModal();
+  });
+
+  function downloadPDF() {
+    const element = document.getElementById('pdfContent');
+    if (!element) return alert('No se puede encontrar el contenido para descargar');
+
+    const { jsPDF } = window.jspdf;
+    const html2canvas = window.html2canvas;
+
+    if (!jsPDF || !html2canvas) {
+      alert('Las librerías no han cargado. Recarga la página e intenta de nuevo.');
+      return;
+    }
+
+    const filename = `Ficha_${currentCandidateData.name.replace(/\s+/g, '_')}.pdf`;
+
+    html2canvas(element, { 
+      scale: 4, 
+      useCORS: true, 
+      logging: false,
+      backgroundColor: '#ffffff',
+      imageTimeout: 0
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({ 
+        orientation: 'portrait', 
+        unit: 'mm', 
+        format: 'a4'
+      });
+      const imgWidth = 210;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      let position = 0;
+      let heightLeft = imgHeight;
+
+      while (heightLeft >= 0) {
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= 297;
+        position -= 297;
+        if (heightLeft > 0) pdf.addPage();
+      }
+
+      pdf.save(filename);
+    }).catch(err => {
+      console.error('Error generando PDF:', err);
+      alert('Error al generar el PDF. Intenta de nuevo.');
+    });
+  }
+</script>

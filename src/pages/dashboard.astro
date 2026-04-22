@@ -1,0 +1,45 @@
+---
+import "../styles/global.css";
+import "../styles/dashboard.css";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import SearchCandidates from "../components/SearchCandidates.astro";
+import VideoProposals from "../components/VideoProposals.astro";
+import Bicameral from "../components/Bicameral.astro";
+import News from "../components/News.astro";
+import Comments from "../components/Comments.astro";
+import Myths from "../components/Myths.astro";
+import Procedures from "../components/Procedures.astro";
+import Footer from "../components/Footer.astro";
+import CandidateModal from "../components/CandidateModal.astro";
+---
+
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voto Informado – Perú 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<Navbar />
+
+<main>
+  <Hero />
+  <SearchCandidates />
+  <VideoProposals />
+  <Bicameral />
+  <News />
+  <Comments />
+  <Myths />
+  <Procedures />
+  <Footer />
+</main>
+
+<CandidateModal />
+
+</body>
+</html>

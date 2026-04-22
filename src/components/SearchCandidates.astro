@@ -1,0 +1,190 @@
+---
+// SearchCandidates.astro
+---
+
+<section id="buscador">
+  <div style="max-width:860px; margin:0 auto;">
+    <p class="section-tag">01 / BUSCADOR</p>
+    <h2 class="section-title">Encuentra a tus candidatos</h2>
+ 
+    <div class="search-box">
+      <div class="search-input-wrap">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="text" placeholder="Buscar por nombre o partido..." id="searchInput" />
+      </div>
+      <div class="search-filters">
+        <div class="filter-group">
+          <span class="filter-label">CARGO</span>
+          <div class="filter-pills" id="cargoFilters">
+            <button type="button" class="pill active" data-cargo="todos">TODOS</button>
+            <button type="button" class="pill" data-cargo="presidencia">PRESIDENCIA</button>
+            <button type="button" class="pill" data-cargo="senado">SENADO</button>
+            <button type="button" class="pill" data-cargo="diputados">DIPUTADOS</button>
+          </div>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">REGIÓN</span>
+          <select class="filter-select" id="regionSelect">
+            <option value="todas">Todas las regiones</option>
+            <option value="nacional">Nacional</option>
+            <option value="lima">Lima</option>
+            <option value="arequipa">Arequipa</option>
+            <option value="cusco">Cusco</option>
+            <option value="la-libertad">La Libertad</option>
+            <option value="piura">Piura</option>
+          </select>
+        </div>
+      </div>
+    </div>
+ 
+    <p class="results-count" id="resultsCount">3 CANDIDATOS ENCONTRADOS</p>
+    <div class="no-results" id="noResults" hidden>No se encontraron candidatos.</div>
+ 
+    <div class="candidates-grid" id="candidatesGrid">
+ 
+      <div class="candidate-card" data-cargo="presidencia" data-region="nacional">
+        <div class="card-top">
+          <div class="card-avatar" style="background:#2c3e50;">KF</div>
+          <div>
+            <div class="card-name">Keiko Fujimori</div>
+            <div class="card-party">FUERZA POPULAR</div>
+            <div class="card-meta">
+              <span>Presidencia</span>
+              <span>Nacional</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-alert">
+          <div class="alert-dot"></div>
+          <div class="alert-text">Investigaciones en curso — Investigación en curso por presunto lavado de activos (Caso Cócteles).</div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">2010 · FUERZA 2011</span>
+          <span class="tag">2012 · FUERZA POPULAR</span>
+        </div>
+        <div class="card-bottom">
+          <a href="#" onclick="openModal(event, 'Keiko Fujimori', 'FUERZA POPULAR', 'Presidencia', 'Nacional', 'KF', '#2c3e50')">VER FICHA COMPLETA</a>
+          <button type="button">⤴</button>
+        </div>
+      </div>
+ 
+      <div class="candidate-card" data-cargo="presidencia" data-region="nacional">
+        <div class="card-top">
+          <div class="card-avatar" style="background:#8e1c1c;">RL</div>
+          <div>
+            <div class="card-name">Rafael López Aliaga</div>
+            <div class="card-party">RENOVACIÓN POPULAR</div>
+            <div class="card-meta">
+              <span>Presidencia</span>
+              <span>Nacional</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-alert">
+          <div class="alert-dot"></div>
+          <div class="alert-text">Investigaciones en curso — Investigación por presunta evasión tributaria (Peruval).</div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">2010 · SOLIDARIDAD NAC.</span>
+          <span class="tag">2020 · RENOV. POPULAR</span>
+        </div>
+        <div class="card-bottom">
+          <a href="#" onclick="openModal(event, 'Rafael López Aliaga', 'RENOVACIÓN POPULAR', 'Presidencia', 'Nacional', 'RL', '#8e1c1c')">VER FICHA COMPLETA</a>
+          <button type="button">⤴</button>
+        </div>
+      </div>
+ 
+      <div class="candidate-card" data-cargo="presidencia" data-region="nacional">
+        <div class="card-top">
+          <div class="card-avatar" style="background:#1a5276;">CA</div>
+          <div>
+            <div class="card-name">César Acuña</div>
+            <div class="card-party">ALIANZA PARA EL PROGRESO</div>
+            <div class="card-meta">
+              <span>Presidencia</span>
+              <span>Nacional</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-alert">
+          <div class="alert-dot"></div>
+          <div class="alert-text">Investigaciones en curso — Investigación por presunto plagio académico y aportes irregulares.</div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">2005 · PERÚ POSIBLE</span>
+          <span class="tag">2007 · APRA</span>
+          <span class="tag">2008 · ALIANZA PROGRESO</span>
+        </div>
+        <div class="card-bottom">
+          <a href="#" onclick="openModal(event, 'César Acuña', 'ALIANZA PARA EL PROGRESO', 'Presidencia', 'Nacional', 'CA', '#1a5276')">VER FICHA COMPLETA</a>
+          <button type="button">⤴</button>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('searchInput');
+    const regionSelect = document.getElementById('regionSelect');
+    const resultsCount = document.getElementById('resultsCount');
+    const noResults = document.getElementById('noResults');
+    const pills = document.querySelectorAll('.pill');
+    const cards = document.querySelectorAll('.candidate-card');
+
+    let currentCargo = 'todos';
+    let currentRegion = 'todas';
+
+    const updateResults = visible => {
+      if (resultsCount) {
+        resultsCount.textContent = `${visible} CANDIDATO${visible === 1 ? '' : 'S'} ENCONTRADOS`;
+      }
+      if (noResults) {
+        noResults.hidden = visible !== 0;
+      }
+    };
+
+    const applyFilters = () => {
+      const query = (searchInput?.value || '').toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const name = (card.querySelector('.card-name')?.textContent || '').toLowerCase();
+        const party = (card.querySelector('.card-party')?.textContent || '').toLowerCase();
+        const cargo = card.dataset.cargo || '';
+        const region = (card.dataset.region || '').toLowerCase();
+
+        const matchQuery = query === '' || name.includes(query) || party.includes(query) || cargo.includes(query) || region.includes(query);
+        const matchCargo = currentCargo === 'todos' || cargo === currentCargo;
+        const matchRegion = currentRegion === 'todas' || region === currentRegion;
+        const show = matchQuery && matchCargo && matchRegion;
+
+        (card).style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      updateResults(visible);
+    };
+
+    searchInput?.addEventListener('input', applyFilters);
+    regionSelect?.addEventListener('change', event => {
+      currentRegion = event.target.value;
+      applyFilters();
+    });
+
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentCargo = pill.dataset.cargo || 'todos';
+        applyFilters();
+      });
+    });
+
+    applyFilters();
+  });
+</script>

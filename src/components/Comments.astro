@@ -1,0 +1,115 @@
+---
+// Comments.astro
+---
+
+<section id="comentarios">
+  <div style="max-width:860px; margin:0 auto;">
+    <p class="section-tag">05 / COMENTARIOS</p>
+    <h2 class="section-title">Comentarios</h2>
+ 
+    <div class="comentarios-layout">
+      <div>
+        <div class="comments-list" id="commentsList">
+          <div class="comment">
+            <div class="comment-avatar" style="background:#2980b9;">S</div>
+            <div class="comment-body">
+              <div class="comment-user">Sandro</div>
+              <div class="comment-text">Keiko es una mrd</div>
+              <div class="comment-actions">
+                <button>Ocultar ∧</button>
+                <span>5 Mas ∨</span>
+              </div>
+              <div class="nested-comment" style="display:flex;gap:8px;margin-top:8px;">
+                <div class="comment-avatar" style="background:#27ae60;width:26px;height:26px;font-size:10px;">S</div>
+                <div>
+                  <div class="comment-user" style="font-size:11px;">Sandro</div>
+                  <div class="comment-text" style="font-size:12px;">concuerdo</div>
+                </div>
+              </div>
+              <div class="nested-comment" style="display:flex;gap:8px;margin-top:6px;">
+                <div class="comment-avatar" style="background:#8e44ad;width:26px;height:26px;font-size:10px;">S</div>
+                <div>
+                  <div class="comment-user" style="font-size:11px;">Sandro</div>
+                  <div class="comment-text" style="font-size:12px;">x 2</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comment" style="margin-top:1rem;">
+            <div class="comment-avatar" style="background:#e67e22;">R</div>
+            <div class="comment-body">
+              <div class="comment-user">Rodrigo</div>
+              <div class="comment-text">Porky solo sabe tragar</div>
+              <div class="comment-actions">
+                <button>Ver 2 respuestas ∨</button>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="comment-input-row">
+          <input type="text" placeholder="Comenta tu opinión" id="commentInput" />
+          <button class="send-btn" onclick="addComment()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+ 
+      <div class="comments-info">
+        <h3>¿Para qué sirve este chat?</h3>
+        <ul class="info-list">
+          <li>
+            <strong>Crear comunidad</strong>
+            <span>- Conecta a los usuarios.</span>
+          </li>
+          <li>
+            <strong>Intercambiar información</strong>
+            <span>- Comparten datos y consejos.</span>
+          </li>
+          <li>
+            <strong>Dar feedback</strong>
+            <span>- Opinan para mejorar la web.</span>
+          </li>
+          <li>
+            <strong>Soporte entre usuarios</strong>
+            <span>- Se ayudan entre ellos.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const colors = ['#2980b9','#27ae60','#8e44ad','#e67e22','#c0392b','#16a085'];
+  function addComment() {
+    const input = document.getElementById('commentInput') as HTMLInputElement;
+    if (!input) return;
+    const text = input.value.trim();
+    if (!text) return;
+    const list = document.getElementById('commentsList');
+    if (!list) return;
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const div = document.createElement('div');
+    div.className = 'comment';
+    div.style.marginTop = '1rem';
+    div.innerHTML = `
+      <div class="comment-avatar" style="background:${color};">T</div>
+      <div class="comment-body">
+        <div class="comment-user">Tú</div>
+        <div class="comment-text">${text}</div>
+      </div>`;
+    list.appendChild(div);
+    input.value = '';
+    list.scrollTop = list.scrollHeight;
+  }
+  
+  const commentInput = document.getElementById('commentInput');
+  if (commentInput) {
+    commentInput.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter') addComment();
+    });
+  }
+</script>
