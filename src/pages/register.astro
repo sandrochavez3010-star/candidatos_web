@@ -67,7 +67,8 @@ import "../styles/global.css";
         md:min-h-screen
       ">
  
-        <div class="w-full max-w-105">
+        <div class="w-full max-w-sm">
+          <p class="text-xs opacity-80 mb-4">
             Crear Cuenta
           </p>
  
@@ -188,14 +189,15 @@ import "../styles/global.css";
 
 
 <script>
-document.getElementById("btnregister").addEventListener("click", async (e) => {
+const btn = document.getElementById("btnregister") as HTMLButtonElement;
+btn?.addEventListener("click", async (e) => {
   e.preventDefault();
   console.log("scrpit cargando");
   console.log("click funciona");
 
-  const nombre = document.getElementById("nombre").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const nombre = (document.getElementById("nombre") as HTMLInputElement)?.value;
+  const email = (document.getElementById("email") as HTMLInputElement)?.value;
+  const password = (document.getElementById("password") as HTMLInputElement)?.value;
 
   const res = await fetch("http://localhost:3000/register", {
     method: "POST",
@@ -207,7 +209,7 @@ document.getElementById("btnregister").addEventListener("click", async (e) => {
 
   const data = await res.json();
 
-  const mensaje = document.getElementById("mensaje");
+  const mensaje = document.getElementById("mensaje") as HTMLParagraphElement;
 
   if (data.ok) {
     mensaje.textContent = "Usuario registrado correctamente";
