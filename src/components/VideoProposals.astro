@@ -1,78 +1,40 @@
 ---
-// VideoProposals.astro
+const videos = [
+  { id: "kRomdByjEtw", titulo: "FUJIMORI, NIETO Y GUEVARA", tema: "SEGURIDAD CIUDADANA" },
+  { id: "-lRt8kL1pt4", titulo: "OLIVERA, GROZO Y PÉREZ TELLO", tema: "LUCHA CONTRA LA CORRUPCIÓN" },
+  { id: "MYq8C6WNHgE", titulo: "ÁLVAREZ, LUNA Y ACUÑA", tema: "LUCHA CONTRA LA CORRUPCIÓN" },
+  { id: "KN9pwhoh5FY", titulo: "WILLIAMS, LÓPEZ ALIAGA Y GONZALES", tema: "SEGURIDAD CIUDADANA" },
+  { id: "Wt6QcXehWrc", titulo: "FUJIMORI, VIZCARRA, GUEVARA", tema: "LUCHA CONTRA LA CORRUPCIÓN" },
+  { id: "PtCV4bBUaoQ", titulo: "MASSÉ, ESPÁ, BELMONT", tema: "LUCHA CONTRA LA CORRUPCIÓN" }
+];
 ---
 
 <section id="propuestas">
   <div style="max-width:1000px; margin:0 auto;">
     <p class="section-tag">02 / COMPARADOR</p>
-    <h2 class="section-title" style="margin-bottom:1.2rem;">Propuestas</h2>
- 
+    <h2 class="section-title">Propuestas</h2>
+
     <div class="video-slider">
       <button class="slider-btn" onclick="slideVideos(-1)">‹</button>
+
       <div class="videos-track" id="videosTrack">
-        <div class="video-card">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#1c2c1c;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#2c1c1c;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-      </div>
-      <button class="slider-btn" onclick="slideVideos(1)">›</button>
-    </div>
- 
-    <div class="video-slider" style="margin-top:12px;">
-      <button class="slider-btn" onclick="slideVideos(-1)">‹</button>
-      <div class="videos-track">
-        <div class="video-card" style="background:#1a2030;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#201a30;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#302020;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
+        {videos.map(video => (
+          <a href={`https://youtu.be/${video.id}`} target="_blank">
+            <div class="video-card">
+              <img src={`https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`} class="video-img" />
+              
+              <div class="video-overlay">
+                <div class="video-debate">DEBATE</div>
+                <div class="video-label">{video.tema}</div>
+                <div class="video-meta">{video.titulo}</div>
+              </div>
+
+              <div class="video-time">13:41</div>
+            </div>
+          </a>
+        ))}
       </div>
       <button class="slider-btn" onclick="slideVideos(1)">›</button>
     </div>
   </div>
 </section>
-
-<script>
-  function slideVideos(dir: number) { 
-    /* implementar con datos reales */ 
-  }
-</script>
