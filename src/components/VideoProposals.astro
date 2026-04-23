@@ -1,78 +1,272 @@
 ---
 // VideoProposals.astro
+const videos = [
+  { id: 'E1G0hEad6gY', time: '17:17',   title: 'RESUMEN DÍA 4 DEL', em: 'DEBATE PRESIDENCIAL', url: 'https://youtu.be/E1G0hEad6gY' },
+  { id: '3EfqUgNKxLg', time: '16:12',   title: 'RESUMEN DÍA 6 DEL', em: 'DEBATE PRESIDENCIAL', url: 'https://youtu.be/3EfqUgNKxLg' },
+  { id: 'eZ0kqjvKEZ0', time: '15:48',   title: 'MENSAJE DE CIERRE',  em: 'DÍA 3 DE DEBATE',    url: 'https://youtu.be/eZ0kqjvKEZ0' },
+  { id: 'FCsGL6zffYA', time: '3:34:42', title: 'DEBATE',             em: 'PRESIDENCIAL 2026',  url: 'https://www.youtube.com/live/FCsGL6zffYA' },
+  { id: 'd1OyK5M867k', time: '27:32',   title: 'RESUMEN DÍA 5 DEL', em: 'DEBATE PRESIDENCIAL', url: 'https://youtu.be/d1OyK5M867k' },
+  { id: 'FqSuq0elJFc', time: '14:42',   title: 'RESUMEN PRIMERA',   em: 'SEMANA DE DEBATE',    url: 'https://youtu.be/FqSuq0elJFc' },
+];
 ---
 
-<section id="propuestas">
-  <div style="max-width:1000px; margin:0 auto;">
-    <p class="section-tag">02 / COMPARADOR</p>
-    <h2 class="section-title" style="margin-bottom:1.2rem;">Propuestas</h2>
- 
-    <div class="video-slider">
-      <button class="slider-btn" onclick="slideVideos(-1)">‹</button>
-      <div class="videos-track" id="videosTrack">
-        <div class="video-card">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#1c2c1c;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#2c1c1c;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
+<section id="propuestas" class="prop-section">
+  <div class="prop-inner">
+    <p class="prop-tag">02 / COMPARADOR</p>
+    <h2 class="prop-title">PRO<span>PUESTAS</span></h2>
+
+    <div class="slider-wrap">
+      <button class="nav-btn nav-prev" id="prevBtn" aria-label="Anterior">‹</button>
+      <div class="track" id="videosTrack">
+        {videos.slice(0, 3).map(v => (
+          <a class="vcard" href={v.url} target="_blank" rel="noopener noreferrer">
+            <!-- ✅ CAMBIO: <img> en lugar de div con background-image -->
+            <img
+              class="vthumb-img"
+              src={`https://img.youtube.com/vi/${v.id}/hqdefault.jpg`}
+              alt={v.title}
+              loading="lazy"
+              decoding="async"
+            />
+            <div class="voverlay"></div>
+            <div class="play-btn"><div class="play-icon"></div></div>
+            <div class="vtag">VIDEO</div>
+            <div class="vtime">{v.time}</div>
+            <div class="vtitle">{v.title}<br /><em>{v.em}</em></div>
+          </a>
+        ))}
       </div>
-      <button class="slider-btn" onclick="slideVideos(1)">›</button>
+      <button class="nav-btn nav-next" id="nextBtn" aria-label="Siguiente">›</button>
     </div>
- 
-    <div class="video-slider" style="margin-top:12px;">
-      <button class="slider-btn" onclick="slideVideos(-1)">‹</button>
-      <div class="videos-track">
-        <div class="video-card" style="background:#1a2030;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#201a30;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-        <div class="video-card" style="background:#302020;">
-          <div class="video-overlay">
-            <div class="video-debate">DEBATE</div>
-            <div class="video-label">INTEGRIDAD Y LUCHA<br/>CONTRA LA CORRUPC...</div>
-            <div class="video-meta">ÁLVAREZ, LUNA Y ACUÑA | PROPUESTAS SOBRE LUCHA CONTRA LA...</div>
-          </div>
-          <div class="video-time">13:41</div>
-        </div>
-      </div>
-      <button class="slider-btn" onclick="slideVideos(1)">›</button>
-    </div>
+
+    <div class="dots" id="dots"></div>
   </div>
 </section>
 
-<script>
-  function slideVideos(dir: number) { 
-    /* implementar con datos reales */ 
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500&display=swap');
+
+  .prop-section {
+    font-family: 'DM Sans', sans-serif;
+    padding: 2.5rem 0;
+    background: #f5f3ef;
   }
+  .prop-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .prop-tag {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: #888;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .prop-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 56px);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: #111;
+    margin: 0 0 1.5rem;
+  }
+  .prop-title span { color: #c0392b; }
+
+  .slider-wrap {
+    position: relative;
+    padding: 0 24px;
+  }
+  .track {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
+  .vcard {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    border: 1.5px solid rgba(0,0,0,0.08);
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    background: #1a1a1a; /* fallback mientras carga */
+  }
+  .vcard:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.22);
+  }
+  /* ✅ CAMBIO: hover apunta a .vthumb-img */
+  .vcard:hover .vthumb-img { transform: scale(1.06); }
+  .vcard:hover .play-btn   { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  .vcard:hover .voverlay   { opacity: 1; }
+
+  /* ✅ CAMBIO: estilos de imagen real */
+  .vthumb-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .voverlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+    opacity: 0.7;
+    transition: opacity 0.3s;
+  }
+
+  .play-btn {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%) scale(0.8);
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    pointer-events: none;
+  }
+  .play-icon {
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 8px 0 8px 16px;
+    border-color: transparent transparent transparent #c0392b;
+    margin-left: 3px;
+  }
+
+  .vtag {
+    position: absolute; top: 10px; left: 10px;
+    background: #c0392b; color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px;
+  }
+  .vtime {
+    position: absolute; bottom: 8px; right: 8px;
+    background: rgba(0,0,0,0.75); color: #fff;
+    font-size: 11px; font-family: monospace; font-weight: 500;
+    padding: 2px 7px; border-radius: 4px; letter-spacing: 0.05em;
+  }
+  .vtitle {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 10px 12px 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px; line-height: 1.2; color: #fff;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+  }
+  .vtitle em { color: #f0c040; font-style: normal; }
+
+  .nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #fff; border: 1px solid rgba(0,0,0,0.15);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; z-index: 2; font-size: 20px; color: #111;
+    transition: background 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .nav-btn:hover {
+    background: #f0f0f0;
+    transform: translateY(-50%) scale(1.1);
+  }
+  .nav-prev { left: -18px; }
+  .nav-next { right: -18px; }
+
+  .dots {
+    display: flex; gap: 6px; justify-content: center;
+    margin-top: 14px;
+  }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #ccc; transition: background 0.2s, transform 0.2s;
+    cursor: pointer; border: none;
+  }
+  .dot.active { background: #c0392b; transform: scale(1.4); }
+
+  @media (max-width: 640px) {
+    .track { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) {
+    .track { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const videos = [
+    { id: 'E1G0hEad6gY', time: '17:17',   title: 'RESUMEN DÍA 4 DEL', em: 'DEBATE PRESIDENCIAL', url: 'https://youtu.be/E1G0hEad6gY' },
+    { id: '3EfqUgNKxLg', time: '16:12',   title: 'RESUMEN DÍA 6 DEL', em: 'DEBATE PRESIDENCIAL', url: 'https://youtu.be/3EfqUgNKxLg' },
+    { id: 'eZ0kqjvKEZ0', time: '15:48',   title: 'MENSAJE DE CIERRE',  em: 'DÍA 3 DE DEBATE',    url: 'https://youtu.be/eZ0kqjvKEZ0' },
+    { id: 'FCsGL6zffYA', time: '3:34:42', title: 'DEBATE',             em: 'PRESIDENCIAL 2026',  url: 'https://www.youtube.com/live/FCsGL6zffYA' },
+    { id: 'd1OyK5M867k', time: '27:32',   title: 'RESUMEN DÍA 5 DEL', em: 'DEBATE PRESIDENCIAL', url: 'https://youtu.be/d1OyK5M867k' },
+    { id: 'FqSuq0elJFc', time: '14:42',   title: 'RESUMEN PRIMERA',   em: 'SEMANA DE DEBATE',    url: 'https://youtu.be/FqSuq0elJFc' },
+  ];
+
+  const perPage = 3;
+  let page = 0;
+  const totalPages = Math.ceil(videos.length / perPage);
+
+  function buildCard(v: typeof videos[number]) {
+    const a = document.createElement('a');
+    a.className = 'vcard';
+    a.href = v.url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+
+    // ✅ CAMBIO: <img> en lugar de div con background-image
+    a.innerHTML = `
+      <img
+        class="vthumb-img"
+        src="https://img.youtube.com/vi/${v.id}/hqdefault.jpg"
+        alt="${v.title}"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="voverlay"></div>
+      <div class="play-btn"><div class="play-icon"></div></div>
+      <div class="vtag">VIDEO</div>
+      <div class="vtime">${v.time}</div>
+      <div class="vtitle">${v.title}<br><em>${v.em}</em></div>
+    `;
+    return a;
+  }
+
+  function renderTrack() {
+    const track = document.getElementById('videosTrack')!;
+    track.innerHTML = '';
+    const slice = videos.slice(page * perPage, page * perPage + perPage);
+    slice.forEach(v => track.appendChild(buildCard(v)));
+    renderDots();
+  }
+
+  function renderDots() {
+    const dots = document.getElementById('dots')!;
+    dots.innerHTML = '';
+    for (let i = 0; i < totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'dot' + (i === page ? ' active' : '');
+      btn.setAttribute('aria-label', `Página ${i + 1}`);
+      btn.addEventListener('click', () => { page = i; renderTrack(); });
+      dots.appendChild(btn);
+    }
+  }
+
+  document.getElementById('prevBtn')?.addEventListener('click', () => {
+    page = (page - 1 + totalPages) % totalPages; renderTrack();
+  });
+  document.getElementById('nextBtn')?.addEventListener('click', () => {
+    page = (page + 1) % totalPages; renderTrack();
+  });
+
+  renderTrack();
 </script>
+
+
