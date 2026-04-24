@@ -66,4 +66,4 @@ app.post("/register", (req, res) => {
 
     res.json({ ok: true, mensaje: "Usuario registrado" });
   });
-});
+})
