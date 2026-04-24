@@ -60,71 +60,709 @@
   </div>
 </div>
 
-<script>
-  declare const html2pdf: any;
-  
-  let currentCandidateData = {
-    name: '',
-    party: '',
-    cargo: '',
-    region: '',
-    initials: '',
-    bgColor: ''
-  };
+<script is:inline>
+console.log("MODAL CARGADO");
 
-  function openModal(event: Event, name: string, party: string, cargo: string, region: string, initials: string, bgColor: string) {
-    event.preventDefault();
-    currentCandidateData = { name, party, cargo, region, initials, bgColor };
-    
-    const modalName = document.getElementById('modalName');
-    const modalParty = document.getElementById('modalParty');
-    const modalCargo = document.getElementById('modalCargo');
-    const modalRegion = document.getElementById('modalRegion');
-    const modalAvatar = document.getElementById('modalAvatar');
-    
-    if (modalName) modalName.textContent = name;
-    if (modalParty) modalParty.textContent = party;
-    if (modalCargo) modalCargo.textContent = cargo;
-    if (modalRegion) modalRegion.textContent = region;
-    if (modalAvatar) {
-      modalAvatar.textContent = initials;
-      modalAvatar.style.background = bgColor;
+let currentCandidateData = {};
+
+// 🔥 DATA BASADA EN INFORMACIÓN PÚBLICA (RESUMIDA Y NEUTRAL)
+const candidatesData = {
+  "Keiko Fujimori": {
+    alert: "Investigaciones fiscales en curso relacionadas a financiamiento político.",
+    bio: [
+      "Administración de Empresas — Boston University",
+      "Ex congresista de la República (2006–2011)",
+      "Lideresa del partido Fuerza Popular"
+    ],
+    history: [
+      "2010 - FUERZA 2011",
+      "2012 - FUERZA POPULAR"
+    ],
+    proposals: [
+      "Seguridad ciudadana como eje prioritario",
+      "Promoción de inversión privada",
+      "Reformas en el sistema de salud"
+    ]
+  },
+
+  "Rafael López Aliaga": {
+    alert: "Cuestionamientos públicos sobre temas tributarios y empresariales.",
+    bio: [
+      "Empresario peruano",
+      "Alcalde de Lima Metropolitana",
+      "Fundador del partido Renovación Popular"
+    ],
+    history: [
+      "SOLIDARIDAD NACIONAL",
+      "RENOVACIÓN POPULAR"
+    ],
+    proposals: [
+      "Reducción del gasto público",
+      "Impulso a infraestructura urbana",
+      "Políticas de seguridad más estrictas"
+    ]
+  },
+
+  "César Acuña": {
+    alert: "Cuestionamientos públicos por denuncias de plagio académico.",
+    bio: [
+      "Doctor en Educación",
+      "Fundador de la Universidad César Vallejo",
+      "Ex gobernador regional de La Libertad"
+    ],
+    history: [
+      "PERÚ POSIBLE",
+      "ALIANZA PARA EL PROGRESO"
+    ],
+    proposals: [
+      "Inversión en educación",
+      "Apoyo a pequeñas empresas",
+      "Programas de empleo regional"
+    ]
+  },
+
+  "Pedro García": {
+    alert: "Sin investigaciones públicas registradas.",
+    bio: [
+      "Profesional en temas ambientales",
+      "Participación en iniciativas ecológicas"
+    ],
+    history: [
+      "PARTIDO VERDE"
+    ],
+    proposals: [
+      "Políticas ambientales sostenibles",
+      "Transporte ecológico",
+      "Gestión de recursos naturales"
+    ]
+  },
+
+  "Lucía Mendoza": {
+    alert: "Procesos en evaluación sin sentencia firme.",
+    bio: [
+      "Abogada",
+      "Experiencia en gestión pública"
+    ],
+    history: [
+      "MOVIMIENTO POPULAR"
+    ],
+    proposals: [
+      "Reforma institucional",
+      "Acceso a justicia",
+      "Modernización del Estado"
+    ]
+  },
+
+  "Juan Ramos": {
+    alert: "Sin antecedentes públicos relevantes.",
+    bio: [
+      "Economista",
+      "Consultor en políticas públicas"
+    ],
+    history: [
+      "UNIÓN DEMOCRÁTICA"
+    ],
+    proposals: [
+      "Crecimiento económico sostenido",
+      "Formalización laboral",
+      "Programas de empleo juvenil"
+    ]
+  }
+};
+
+// 🔥 TU FUNCIÓN (MISMA, PERO CON DATA REALISTA)
+window.openModal = function (event, name, party, cargo, region, initials, bgColor) {
+  event.preventDefault();
+
+  currentCandidateData = { name, party, cargo, region, initials, bgColor };
+
+  const data = candidatesData[name];
+
+  document.getElementById('modalName').textContent = name;
+  document.getElementById('modalParty').textContent = party;
+  document.getElementById('modalCargo').textContent = cargo;
+  document.getElementById('modalRegion').textContent = region;
+
+  const avatar = document.getElementById('modalAvatar');
+  avatar.textContent = initials;
+  avatar.style.background = bgColor;
+
+  if (data) {
+  const modalAlert = document.getElementById('modalAlert');
+
+  if (modalAlert) {
+    modalAlert.textContent = data.alert;
+
+    // 🔥 AQUÍ ESTÁ LA MAGIA
+    if (
+      data.alert.toLowerCase().includes('sin investigaciones') ||
+      data.alert.toLowerCase().includes('sin antecedentes')
+    ) {
+      modalAlert.classList.add('success');
+    } else {
+      modalAlert.classList.remove('success');
     }
-    
-    const modal = document.getElementById('candidateModal');
-    if (modal) modal.classList.add('active');
   }
 
-  function closeModal() {
-    const modal = document.getElementById('candidateModal');
-    if (modal) modal.classList.remove('active');
-  }
+  document.getElementById('modalBio').innerHTML =
+    data.bio.map(i => `<li>${i}</li>`).join('');
 
-  // Cerrar modal al hacer clic fuera
+  document.getElementById('modalHistory').innerHTML =
+    data.history.map(i => `<li>${i}</li>`).join('');
+
+  document.getElementById('modalProposals').innerHTML =
+    data.proposals.map(i => `<li>${i}</li>`).join('');
+}
+
+  document.getElementById('candidateModal').classList.add('active');
+};
+
+// cerrar
+window.closeModal = function () {
+  document.getElementById('candidateModal').classList.remove('active');
+};
+
+// click afuera
+document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('candidateModal');
   if (modal) {
-    modal.addEventListener('click', (e: MouseEvent) => {
-      if (e.target === modal) closeModal();
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) window.closeModal();
     });
   }
+});
 
-  function downloadPDF() {
-    if (typeof html2pdf === 'undefined') {
-      alert('La librería de PDF no ha cargado correctamente');
-      return;
-    }
-    
-    const element = document.getElementById('candidateModal');
-    if (!element) return;
-    
-    const opt = {
-      margin: 10,
-      filename: `Ficha_${currentCandidateData.name.replace(/\s+/g, '_')}.pdf`,
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
-    };
-    
-    html2pdf().set(opt).from(element).save();
+// PDF
+window.downloadPDF = function () {
+
+  const { jsPDF } = window.jspdf;
+
+  const data = candidatesData[currentCandidateData.name];
+
+  if (!data) {
+    alert('No hay datos');
+    return;
   }
+
+  const doc = new jsPDF();
+
+  let y = 20;
+
+  const primary = [44, 62, 80];
+  const lightGray = [248, 249, 250];
+  const border = [220, 220, 220];
+
+  // HEADER
+  doc.setFillColor(...primary);
+  doc.rect(0, 0, 210, 28, 'F');
+
+  doc.setTextColor(255, 255, 255);
+  doc.setFont("Helvetica", "bold");
+  doc.setFontSize(15);
+  doc.text(currentCandidateData.name, 10, 16);
+
+  doc.setFontSize(10);
+  doc.setFont("Helvetica", "normal");
+  doc.text(currentCandidateData.party, 10, 22);
+
+  y = 37;
+
+  // TAGS
+  doc.setFillColor(230, 230, 230);
+  doc.roundedRect(10, y, 60, 8, 3, 3, 'F');
+  doc.roundedRect(75, y, 60, 8, 3, 3, 'F');
+
+  doc.setTextColor(60);
+  doc.setFontSize(9);
+  doc.text(currentCandidateData.cargo, 14, y + 5);
+  doc.text(currentCandidateData.region, 79, y + 5);
+
+  y += 12;
+
+  // LÍNEA
+  doc.setDrawColor(...border);
+  doc.line(10, y, 200, y);
+
+  y += 8;
+
+  // ESTADO
+  const isClean =
+    data.alert.toLowerCase().includes("sin investigaciones") ||
+    data.alert.toLowerCase().includes("sin antecedentes");
+
+  const bg = isClean ? [234, 250, 241] : [255, 243, 205];
+  const txt = isClean ? [39, 174, 96] : [133, 88, 35];
+
+  doc.setFillColor(...bg);
+  doc.roundedRect(10, y, 190, 15, 3, 3, 'F');
+
+  doc.setFillColor(...txt);
+  doc.rect(10, y, 3, 15, 'F');
+
+  doc.setTextColor(...txt);
+  doc.setFont("Helvetica", "bold");
+  doc.setFontSize(11);
+  doc.text("Estado", 15, y + 6);
+
+  doc.setFont("Helvetica", "normal");
+  doc.text(data.alert, 15, y + 11, { maxWidth: 180 });
+
+  y += 24; // 🔥 SOLO AQUÍ se aumentó (antes 20)
+
+  // SECCIONES
+  const drawSection = (title, items) => {
+
+    doc.setTextColor(30);
+    doc.setFont("Helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text(title, 10, y);
+
+    doc.setDrawColor(...border);
+    doc.line(10, y + 2, 60, y + 2);
+
+    y += 5.5;
+
+    const boxHeight = items.length * 6 + 9;
+
+    doc.setFillColor(...lightGray);
+    doc.roundedRect(10, y, 190, boxHeight, 3, 3, 'F');
+
+    doc.setDrawColor(...border);
+    doc.roundedRect(10, y, 190, boxHeight, 3, 3);
+
+    y += 7;
+
+    doc.setFont("Helvetica", "normal");
+    doc.setFontSize(11);
+    doc.setTextColor(50);
+
+    items.forEach(item => {
+      doc.circle(13, y - 1, 0.8, 'F');
+      doc.text(item, 16, y);
+      y += 5.5;
+    });
+
+    y += 10;
+  };
+
+  drawSection("Hoja de Vida", data.bio);
+  drawSection("Trayectoria", data.history);
+  drawSection("Propuestas", data.proposals);
+
+  // FOOTER
+  doc.setDrawColor(...border);
+  doc.line(10, 280, 200, 280);
+
+  doc.setFontSize(9);
+  doc.setTextColor(120);
+  doc.text("Sistema de Información de Candidatos", 10, 285);
+
+  doc.save(`Ficha_${currentCandidateData.name}.pdf`);
+};
 </script>
+
+
+<style>
+
+/* ========================= */
+/* 🎨 ESTILO PRO FINAL (SIN ROMPER) */
+/* ========================= */
+
+.modal-content {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  padding: 26px !important;
+  border: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+/* HEADER */
+.modal-header {
+  background: #111;
+  padding: 18px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.modal-avatar {
+  border-radius: 6px !important;
+  border: 2px solid #fff;
+}
+
+#modalName {
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+#modalParty {
+  color: #ff4d4f !important;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+/* BADGES */
+.modal-meta span {
+  background: rgba(255,255,255,0.08);
+  color: #ddd;
+  font-size: 10px;
+  padding: 4px 8px;
+  margin-right: 6px;
+  border-radius: 20px;
+}
+
+/* SECCIONES */
+.modal-section {
+  background: #fafafa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 14px;
+  border: 1px solid #eee;
+}
+
+/* ========================= */
+/* 🔥 ALERTAS (RESPETANDO TU LÓGICA) */
+/* ========================= */
+
+/* 🟡 NORMAL (investigación) */
+.modal-alert {
+  background: #fff8e1;
+  color: #8a6d1d;
+  border: 1px solid #f5c26b;
+  border-left: 5px solid #f39c12;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 13px;
+}
+
+/* 🟢 LIMPIO */
+.modal-alert.success {
+  background: #edf7ed;
+  color: #1e7e34;
+  border: 1px solid #a3d9a5;
+  border-left: 5px solid #2ecc71;
+}
+
+/* LISTAS */
+.modal-section ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.modal-section li {
+  margin-bottom: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* ========================= */
+/* 🧱 HISTORIAL (CHIPS PRO) */
+/* ========================= */
+
+#modalHistory {
+  padding-left: 0;
+  margin-top: 6px;
+}
+
+#modalHistory li {
+  list-style: none;
+  display: inline-block;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 4px 6px 0 0;
+  border-radius: 14px;
+  font-size: 11px;
+  transition: 0.2s;
+}
+
+#modalHistory li:hover {
+  border-color: #c81d25;
+}
+
+/* ========================= */
+/* 📊 PROPUESTAS GRID */
+/* ========================= */
+
+#modalProposals {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  padding-left: 0;
+  margin-top: 6px;
+}
+
+#modalProposals li {
+  list-style: none;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  padding: 10px;
+  background: #fff;
+  font-size: 12px;
+  transition: 0.2s;
+}
+
+#modalProposals li:hover {
+  border-color: #c81d25;
+}
+
+/* ========================= */
+/* 🧾 TITULOS (MEJOR ESPACIADO) */
+/* ========================= */
+
+.modal-section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  color: #333;
+  position: relative;
+}
+
+.modal-section h3::after {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 2px;
+  background: #c81d25;
+  margin-top: 4px;
+}
+
+/* ========================= */
+/* 🔘 BOTÓN FINAL MEJORADO (ESTILO FUERTE + EDITORIAL) */
+/* ========================= */
+
+.modal-btn {
+  width: calc(100% - 40px);
+  margin: 20px;
+
+  background: #c81d25 !important; /* rojo sólido fuerte */
+  color: #fff;
+
+  border: 1px solid #000;
+  border-radius: 0;
+
+  padding: 15px;
+
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  box-shadow: 0 4px 0 #111;
+
+  transition: all 0.2s ease;
+}
+
+/* hover más agresivo pero limpio */
+.modal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #111;
+  opacity: 0.95;
+}
+
+/* click realista tipo presión */
+.modal-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #111;
+}
+
+/* ========================= */
+/* 🔹 HOJA DE VIDA (más pro visual) */
+/* ========================= */
+
+#modalBio li {
+  list-style: none;
+  background: #fff;
+  border: 1px solid #eee;
+  border-left: 4px solid #c81d25;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  transition: 0.2s;
+}
+
+#modalBio li:hover {
+  transform: translateX(3px);
+  border-color: #c81d25;
+}
+
+/* ========================= */
+/* 🔹 HISTORIAL MÁS LIMPIO */
+/* ========================= */
+
+#modalHistory li {
+  position: relative;
+}
+
+#modalHistory li::before {
+  content: "•";
+  color: #c81d25;
+  font-weight: bold;
+  margin-right: 4px;
+}
+
+/* ========================= */
+/* 🔹 PROPUESTAS MÁS VISUALES */
+/* ========================= */
+
+#modalProposals li {
+  position: relative;
+  padding-left: 14px;
+}
+
+/* icono pequeño tipo check */
+#modalProposals li::before {
+  content: "✔";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  font-size: 10px;
+  color: #c81d25;
+}
+
+/* ========================= */
+/* 🧠 FICHAS EDITORIALES PRO */
+/* ========================= */
+
+/* 🔹 cada sección como “card independiente” */
+.modal-section {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 0;
+  margin-top: 16px;
+  overflow: hidden;
+}
+
+/* 🔥 barra de título tipo encabezado editorial */
+.modal-section h3 {
+  margin: 0;
+  padding: 12px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #111;
+  background: #f7f7f7;
+  border-bottom: 1px solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 🔹 contenido con aire real */
+.modal-section ul {
+  margin: 0;
+  padding: 14px 16px;
+}
+
+/* ========================= */
+/* 📄 HOJA DE VIDA estilo documento */
+/* ========================= */
+
+#modalBio li {
+  list-style: none;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: linear-gradient(180deg, #fff, #fafafa);
+  border: 1px solid #eee;
+  border-left: 4px solid #c81d25;
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.4;
+  transition: 0.2s;
+}
+
+#modalBio li:hover {
+  transform: translateX(3px);
+  border-left-color: #111;
+}
+
+/* ========================= */
+/* 🏛️ HISTORIAL tipo timeline */
+/* ========================= */
+
+#modalHistory {
+  padding: 14px 16px;
+}
+
+#modalHistory li {
+  list-style: none;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-left: 3px solid #c81d25;
+  background: #fafafa;
+  font-size: 12px;
+  position: relative;
+}
+
+/* punto visual */
+#modalHistory li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: #c81d25;
+  border-radius: 50%;
+  position: absolute;
+  left: -4px;
+  top: 12px;
+}
+
+/* ========================= */
+/* 🎯 PROPUESTAS tipo tarjetas */
+/* ========================= */
+
+#modalProposals {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 14px 16px;
+}
+
+#modalProposals li {
+  list-style: none;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 12px;
+  position: relative;
+  transition: 0.2s;
+}
+
+/* barra superior decorativa */
+#modalProposals li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #ff4d4f, #c81d25);
+  border-radius: 8px 8px 0 0;
+}
+
+#modalProposals li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* 🔴 normal */
+.modal-alert {
+  background: #fff3cd;
+  border-left: 4px solid #f39c12;
+}
+
+/* 🟢 limpio */
+.modal-alert.success {
+  background: #eafaf1;
+  border-left: 4px solid #2ecc71;
+}
+</style>
