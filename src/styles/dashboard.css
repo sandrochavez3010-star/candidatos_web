@@ -376,46 +376,137 @@ section { scroll-margin-top: 52px; }
 .news-author { font-size: 11px; color: #aaa; }
 
 /* ── SECCIÓN 6: COMENTARIOS ── */
-#comentarios { padding: 3rem 2rem; background: #fff; border-top: 1px solid #e0ddd6; }
-.comentarios-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.comments-list { border: 1px solid #e0ddd6; padding: 1rem; min-height: 280px; }
-.comment { display: flex; gap: 10px; margin-bottom: 1rem; }
-.comment-avatar {
-  width: 32px; height: 32px; border-radius: 50%;
-  background: #2980b9; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; color: #fff;
+#comentarios { 
+  padding: 3rem 2rem; 
+  background: #fff; 
+  border-top: 1px solid #e0ddd6; 
 }
+
+.comentarios-layout { 
+  display: grid; 
+  grid-template-columns: 2.5fr 1fr; 
+  gap: 2rem; 
+}
+
+/* 🔥 CONTENEDOR TIPO CHAT */
+.comments-list { 
+  border: 1px solid #e0ddd6; 
+  padding: 1rem; 
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;              /* espacio entre comentarios */
+  max-height: 400px;      /* scroll tipo chat */
+  overflow-y: auto;
+}
+
+/* 🔥 MENSAJES */
+.comment { 
+  display: flex; 
+  gap: 10px; 
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-avatar {
+  width: 32px; 
+  height: 32px; 
+  border-radius: 50%;
+  flex-shrink: 0;
+
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+
+  font-size: 12px; 
+  font-weight: 700; 
+  color: #fff;
+}
+
 .comment-body {}
-.comment-user { font-size: 12px; font-weight: 600; margin-bottom: 2px; }
-.comment-text { font-size: 13px; color: #333; line-height: 1.5; }
-.comment-actions { font-size: 11px; color: #aaa; margin-top: 4px; display: flex; gap: 12px; }
-.comment-actions button { background: none; border: none; font-size: 11px; color: #aaa; cursor: pointer; }
-.comment-actions button:hover { color: #666; }
-.nested-comment { padding-left: 42px; margin-bottom: 0.6rem; }
-.nested-comment .comment-avatar { width: 26px; height: 26px; font-size: 10px; }
-.nested-comment .comment-text { font-size: 12px; }
 
-.comments-info { }
-.comments-info h3 { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; margin-bottom: 1rem; text-transform: uppercase; }
-.info-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.info-list li { font-size: 13px; line-height: 1.5; }
-.info-list li strong { display: block; font-weight: 600; }
-.info-list li span { color: #666; font-size: 12px; }
+.comment-user { 
+  font-size: 12px; 
+  font-weight: 600; 
+  margin-bottom: 2px; 
+}
 
+.comment-text { 
+  font-size: 13px; 
+  color: #333; 
+  line-height: 1.5; 
+}
+
+/* ❌ YA NO SE USA (respuestas) */
+.comment-actions { display: none; }
+.nested-comment { display: none; }
+
+/* INFO LATERAL */
+.comments-info {}
+
+.comments-info h3 { 
+  font-size: 16px; 
+  font-weight: 700; 
+  letter-spacing: 0.04em; 
+  margin-bottom: 1rem; 
+  text-transform: uppercase; 
+}
+
+.info-list { 
+  list-style: none; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 10px; 
+}
+
+.info-list li { 
+  font-size: 13px; 
+  line-height: 1.5; 
+}
+
+.info-list li strong { 
+  display: block; 
+  font-weight: 600; 
+}
+
+.info-list li span { 
+  color: #666; 
+  font-size: 12px; 
+}
+
+/* INPUT */
 .comment-input-row {
-  display: flex; gap: 10px; align-items: center;
-  border: 1px solid #ddd; padding: 10px 14px; margin-top: 1rem;
+  display: flex; 
+  gap: 10px; 
+  align-items: center;
+  border: 1px solid #ddd; 
+  padding: 10px 14px; 
+  margin-top: 1rem;
   background: #fff;
 }
+
 .comment-input-row input {
-  flex: 1; border: none; outline: none;
-  font-size: 14px; font-family: inherit; color: #333;
+  flex: 1; 
+  border: none; 
+  outline: none;
+  font-size: 14px; 
+  font-family: inherit; 
+  color: #333;
 }
-.comment-input-row input::placeholder { color: #bbb; }
+
+.comment-input-row input::placeholder { 
+  color: #bbb; 
+}
+
 .send-btn {
-  background: none; border: none; cursor: pointer;
-  color: #c0392b; font-size: 16px; display: flex; align-items: center;
+  background: none; 
+  border: none; 
+  cursor: pointer;
+  color: #c0392b; 
+  font-size: 16px; 
+  display: flex; 
+  align-items: center;
 }
 
 /* ── SECCIÓN 7: MITOS ── */
@@ -493,4 +584,53 @@ footer {
   .videos-track { grid-template-columns: 1fr; }
   .hero-btns { flex-direction: column; }
   .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+}
+
+
+.video-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* ── TERMINOS ── */
+body {
+  font-family: Arial, sans-serif;
+  background: #f9fafb;
+  margin: 0;
+  padding: 40px 20px;
+  color: #6b7280;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #111827;
+}
+
+h2 {
+  margin-top: 40px;
+  color: #374151;
+}
+
+p {
+  margin: 12px 0;
+  line-height: 1.8;
+}
+
+ul {
+  margin: 10px 0 10px 20px;
 }
